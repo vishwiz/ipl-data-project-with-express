@@ -1,0 +1,15 @@
+.ipl-button{
+    display: flex;
+    justify-content: space-between;
+}
+header{
+    text-align: center;
+}
+
+.ipl-button input{
+    width:17em;
+    height:3em;
+    font-size:1em;
+    background-color:rgb(190, 47, 190); 
+    color:white;
+}
