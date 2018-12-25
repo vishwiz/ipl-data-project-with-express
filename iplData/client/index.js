@@ -2,7 +2,7 @@
     $('#economical-bowler').click(() => {
        var bowler = new Array();
           $.get('/bowledovers', function (data) {
-            bowler = Object.keys(data).map(keys=>[keys, parseInt(data[keys])]);       
+            bowler = Object.keys(data).map(keys=>[keys, Number(data[keys])]);       
        $('#container').highcharts({
                   chart: {
                       type: "column"
@@ -34,7 +34,7 @@
     $('#striker').click(() => {
        var strikeRate = new Array();
           $.get('/strikedata', function (data) {
-            strikeRate = Object.keys(data).map(keys=>[keys, parseInt(data[keys])]);            
+            strikeRate = Object.keys(data).map(keys=>[keys, Number(data[keys])]);            
        $('#container').highcharts({
                   chart: {
                       type: "column"
@@ -65,7 +65,7 @@
     $('#luckiest-teams').click(() => {
         var luckiestTeams = new Array();
            $.get('/lukiestteam', function (data) {
-             luckiestTeams = Object.keys(data).map(keys=>[keys, parseInt(data[keys])]);
+             luckiestTeams = Object.keys(data).map(keys=>[keys, Number(data[keys])]);
           
         $('#container').highcharts({
                    chart: {
@@ -97,32 +97,37 @@
      $('#power-play').click(() => {
         var powerPlay = new Array();
            $.get('/lukiestteam', function (data) {
-         powerPlay = Object.keys(data).map(keys=>[keys, parseInt(data[keys])]);
+         powerPlay = Object.keys(data).map(keys=>[keys, Number(data[keys])]);
              
-        $('#container').highcharts({
-                   chart: {
-                       type: "column"
-                   },
-                   title: {
-                       text: "Top Teams in Power Play"
-                   },
-                   xAxis: {
-                       type: 'category',
-                       allowDecimals: false,
-                       title: {
-                           text: "Teams"
-                       }
-                   },
-                   yAxis: {
-                       title: {
-                           text: "Power Play"
-                       }
-                   },
-                   series: [{
-                       name: 'Teams',
-                       data: powerPlay
-                   }]
-               });
+
+         Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Best Teams in the Power PLay'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Teams',
+                colorByPoint: true,
+                data: powerPlay
+            }]
+        });
              });  
      })
 

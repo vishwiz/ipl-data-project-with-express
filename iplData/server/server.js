@@ -34,7 +34,6 @@ var ipldata = require('./ipldta-javascript/economical-bowler.js');
 
 app.get('/bowledovers', function (req, res) {
    res.send(ipldata.bowledOvers(delivery));
-   console.log(ipldata.bowledOvers())
 
 })
 app.get('/strikedata', function (req, res) {

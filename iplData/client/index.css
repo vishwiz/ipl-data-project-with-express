@@ -1,15 +1,23 @@
 .ipl-button{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 4em;
 }
 header{
     text-align: center;
 }
 
-.ipl-button input{
+.ipl-button > div  input{
     width:17em;
     height:3em;
-    font-size:1em;
-    background-color:rgb(190, 47, 190); 
+    font-size:1.2em;
+    background-color:rgb(27, 24, 27); 
     color:white;
+    outline: none;
+    transition: 1s
+}
+
+.ipl-button > div input:hover{
+    width: 25em;
+    height: 5em;
 }

@@ -1,9 +1,9 @@
-let delivery = require('./deliveries.json');
-let matches = require('./matches.json');
+// let delivery = require('./deliveries.json');
+// let matches = require('./matches.json');
 
 //  Bowlers economy in death overs
 let bowledOvers = (delivery) => {
-
+   // console.log(delivery[0])
    let countOvers = 0;
    let overs = delivery.reduce((overs, delivery) => {
       if (delivery['over'] > 16) {
@@ -24,7 +24,7 @@ let bowledOvers = (delivery) => {
       return overs
    }, {});
 
-   let bowlersEconomy = Object.keys(overs).splice(0, 8).reduce((economy, bowlerDetail) => {
+   let bowlersEconomy = Object.keys(overs).slice(0, 8).reduce((economy, bowlerDetail) => {
       economy[bowlerDetail] = overs[bowlerDetail][
          [1]
       ] / overs[bowlerDetail][
