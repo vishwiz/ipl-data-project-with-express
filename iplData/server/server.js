@@ -41,7 +41,7 @@ app.get('/strikedata', function (req, res) {
  
  })
 
- app.get('/lukiestteam', function (req, res) {
+ app.get('/luckiestteam', function (req, res) {
     res.send(ipldata.tossWinner(matches));
  
  })
@@ -50,6 +50,7 @@ app.get('/strikedata', function (req, res) {
     res.send(ipldata.powerPlay(matches,delivery));
  
  })
+
 
 
 
