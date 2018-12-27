@@ -1,5 +1,5 @@
-// let delivery = require('./deliveries.json');
-// let matches = require('./matches.json');
+let delivery = require('./deliveries.json');
+let matches = require('./matches.json');
 
 //  Bowlers economy in death overs
 let bowledOvers = (delivery) => {
@@ -89,36 +89,36 @@ let powerPlay = (matches, delivery) => {
    }, {})
    let matchId = Object.values(yearFinalId);
 
-   let numberOfTimesTeamsPlayed = matches.reduce((data, data1) => {
-      if (matchId.includes(parseInt(data1['id']))) {
-         data[data1['team1']] = (data[data1['team1']] || +0) + 1;
-         data[data1['team2']] = (data[data1['team2']] || +0) + 1;
+   let numberOfTimesTeamsPlayed = matches.reduce((finalMatch, matches) => {
+      if (matchId.includes(parseInt(matches['id']))) {
+         finalMatch[matches['team1']] = (finalMatch[matches['team1']] || +0) + 1;
+         finalMatch[matches['team2']] = (finalMatch[matches['team2']] || +0) + 1;
       }
-      return data
+      return finalMatch
    }, {})
 
 
-   let powerPlay = delivery.reduce((data, data1) => {
-      if (matchId.includes(parseInt(data1['match_id']))) {
-         if (data1['over'] <= 6)
-            data[data1['batting_team']] = (data[data1['batting_team']] || 0) + parseInt(data1['total_runs'])
+   let powerPlay = delivery.reduce((totalRuns, deliveries) => {
+      if (matchId.includes(parseInt(deliveries['match_id']))) {
+         if (deliveries['over'] <= 6)
+            totalRuns[deliveries['batting_team']] = (totalRuns[deliveries['batting_team']] || 0) + parseInt(deliveries['total_runs'])
       }
 
-      return data
+      return totalRuns
    }, {})
 
-   let average = Object.keys(numberOfTimesTeamsPlayed).reduce((data, data1) => {
-      data[data1] = powerPlay[data1] / numberOfTimesTeamsPlayed[data1]
-      return data;
+   let average = Object.keys(numberOfTimesTeamsPlayed).reduce((bestTeams, teamsPlayed) => {
+      bestTeams[teamsPlayed] = powerPlay[teamsPlayed] / numberOfTimesTeamsPlayed[teamsPlayed]
+      return bestTeams;
    }, {})
    return average;
 }
 
-// console.log(average(matches,delivery))
+console.log(powerPlay(matches,delivery))
 
-module.exports = {
-   bowledOvers: bowledOvers,
-   strikeRate: strikeRate,
-   tossWinner: tossWinner,
-   powerPlay: powerPlay
-}
+// module.exports = {
+//    bowledOvers: bowledOvers,
+//    strikeRate: strikeRate,
+//    tossWinner: tossWinner,
+//    powerPlay: powerPlay
+// }

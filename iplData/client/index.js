@@ -1,11 +1,12 @@
 $('#economical-bowler').click(() => {
     let bowler = () => {
-        return fetch('/luckiestteam')
+        return fetch('/bowledovers')
             .then(res => res.json()) //response type
-            .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
+           .then(data => data.map(x=>[x['bowler'],x['economy']]).slice(0,10))
+            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
-                    type: "column"
+                    type: "line"
                 },
                 title: {
                     text: "Top Death Over Bowler"
@@ -36,9 +37,10 @@ $('#economical-bowler').click(() => {
 
 $('#striker').click(() => {
     let strikeRate = () => {
-        return fetch('/luckiestteam')
+        return fetch('/strikedata')
             .then(res => res.json()) //response type
-            .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
+            .then(data => data.map(x=> [x['batsman'],x['strike_rate']]).slice(0,8))
+            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     type: "column"
@@ -72,7 +74,9 @@ $('#luckiest-teams').click(() => {
     let luckiestTeams = () => {
         return fetch('/luckiestteam')
             .then(res => res.json()) //response type
-            .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
+            .then(data => data.map(x=>[x['toss_winner'] , x['count']]))
+            // .then(data => Object.keys(data).map(keys => [data[keys][0], Number(data[keys][1])]))
+            // .then(data1 => console.log(data1))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     type: "bar"
@@ -107,7 +111,8 @@ $('#power-play').click(() => {
     let powerPlay = () => {
         return fetch('/powerplay')
             .then(res => res.json()) //response type
-            .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
+            .then(data=> data.map(x=> [x['batting_team'], x['averagePowerPlay']]))
+            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     plotBackgroundColor: null,
