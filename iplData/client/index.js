@@ -1,9 +1,8 @@
 $('#economical-bowler').click(() => {
     let bowler = () => {
         return fetch('/bowledovers')
-            .then(res => res.json()) //response type
+            .then(res => res.json())
            .then(data => data.map(x=>[x['bowler'],x['economy']]).slice(0,10))
-            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     type: "line"
@@ -38,9 +37,8 @@ $('#economical-bowler').click(() => {
 $('#striker').click(() => {
     let strikeRate = () => {
         return fetch('/strikedata')
-            .then(res => res.json()) //response type
+            .then(res => res.json())
             .then(data => data.map(x=> [x['batsman'],x['strike_rate']]).slice(0,8))
-            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     type: "column"
@@ -73,10 +71,8 @@ $('#striker').click(() => {
 $('#luckiest-teams').click(() => {
     let luckiestTeams = () => {
         return fetch('/luckiestteam')
-            .then(res => res.json()) //response type
+            .then(res => res.json())
             .then(data => data.map(x=>[x['toss_winner'] , x['count']]))
-            // .then(data => Object.keys(data).map(keys => [data[keys][0], Number(data[keys][1])]))
-            // .then(data1 => console.log(data1))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     type: "bar"
@@ -110,9 +106,8 @@ $('#luckiest-teams').click(() => {
 $('#power-play').click(() => {
     let powerPlay = () => {
         return fetch('/powerplay')
-            .then(res => res.json()) //response type
+            .then(res => res.json())
             .then(data=> data.map(x=> [x['batting_team'], x['averagePowerPlay']]))
-            // .then(data => Object.keys(data).map(keys => [keys, Number(data[keys])]))
             .then(chartData => Highcharts.chart('container', {
                 chart: {
                     plotBackgroundColor: null,
