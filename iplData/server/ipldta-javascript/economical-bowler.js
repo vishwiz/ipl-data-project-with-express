@@ -1,9 +1,5 @@
-// let delivery = require('./deliveries.json');
-// let matches = require('./matches.json');
-
 //  Bowlers economy in death overs
 let bowledOvers = (delivery) => {
-   // console.log(delivery[0])
    let countOvers = 0;
    let overs = delivery.reduce((overs, delivery) => {
       if (delivery['over'] > 16) {
@@ -36,7 +32,6 @@ let bowledOvers = (delivery) => {
    return bowlersEconomy;
 }
 
-// console.log(bowledOvers(delivery))
 
 // ---------------------------------------------------------------------------------------------------------
 // Strike Rate of a batsman
@@ -65,7 +60,6 @@ let strikeRate = (delivery) => {
    return strikeRate
 }
 
-// console.log(strikeRate(delivery))
 // --------------------------------------------------------------------------------------------------------------
 
 // Lukiest teams in ipl 
@@ -77,44 +71,41 @@ let tossWinner = (matchesData) => {
    }, {})
    return toss;
 }
-// console.log(tossWinner(matches));
 
 // ----------------------------------------------------------------------------------------------------------------------
 //Power play overs
 let powerPlay = (matches, delivery) => {
-   let yearFinalId = matches.reduce((check, data) => {
-      check[data['season']] = parseInt(data['id']);
-      return check;
+   let yearFinalId = matches.reduce((seasonFinalId, matches) => {
+      seasonFinalId[matches['season']] = parseInt(matches['id']);
+      return seasonFinalId;
 
    }, {})
    let matchId = Object.values(yearFinalId);
 
-   let numberOfTimesTeamsPlayed = matches.reduce((data, data1) => {
-      if (matchId.includes(parseInt(data1['id']))) {
-         data[data1['team1']] = (data[data1['team1']] || +0) + 1;
-         data[data1['team2']] = (data[data1['team2']] || +0) + 1;
+   let numberOfTimesTeamsPlayed = matches.reduce((teamsPlayedFinals, matches) => {
+      if (matchId.includes(parseInt(matches['id']))) {
+         teamsPlayedFinals[matches['team1']] = (teamsPlayedFinals[matches['team1']] || +0) + 1;
+         teamsPlayedFinals[matches['team2']] = (teamsPlayedFinals[matches['team2']] || +0) + 1;
       }
-      return data
+      return teamsPlayedFinals
    }, {})
 
 
-   let powerPlay = delivery.reduce((data, data1) => {
-      if (matchId.includes(parseInt(data1['match_id']))) {
-         if (data1['over'] <= 6)
-            data[data1['batting_team']] = (data[data1['batting_team']] || 0) + parseInt(data1['total_runs'])
+   let powerPlay = delivery.reduce((teamsRuns, delivery) => {
+      if (matchId.includes(parseInt(delivery['match_id']))) {
+         if (delivery['over'] <= 6)
+            teamsRuns[delivery['batting_team']] = (teamsRuns[delivery['batting_team']] || 0) + parseInt(delivery['total_runs'])
       }
 
-      return data
+      return teamsRuns
    }, {})
 
-   let average = Object.keys(numberOfTimesTeamsPlayed).reduce((data, data1) => {
-      data[data1] = powerPlay[data1] / numberOfTimesTeamsPlayed[data1]
-      return data;
+   let average = Object.keys(numberOfTimesTeamsPlayed).reduce((average, teamsName) => {
+      average[teamsName] = powerPlay[teamsName] / numberOfTimesTeamsPlayed[teamsName]
+      return average;
    }, {})
    return average;
 }
-
-// console.log(average(matches,delivery))
 
 module.exports = {
    bowledOvers: bowledOvers,
